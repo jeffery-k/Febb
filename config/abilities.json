@@ -1,0 +1,218 @@
+{
+  "abilities": {
+    "basic": [
+      "basic_turn",
+      "dodge",
+      "dodge_discard",
+      "disengage",
+      "mortal",
+      "initialize"
+    ],
+    "initialize": {
+      "hook": {
+        "profile": "initialize"
+      },
+      "trigger": {
+        "effects": [
+          {
+            "profile": "set",
+            "arguments": [
+              "hit_point",
+              {
+                "resources": {
+                  "hit_point": {
+                    "property": {
+                      "value": "initial"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "profile": "set",
+            "arguments": [
+              "life",
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "basic_turn": {
+      "hook": {
+        "profile": "start_turn"
+      },
+      "trigger": {
+        "effects": [
+          {
+            "profile": "set",
+            "arguments": [
+              "movement",
+              1
+            ]
+          },
+          {
+            "profile": "set",
+            "arguments": [
+              "action",
+              1
+            ]
+          },
+          {
+            "profile": "set",
+            "arguments": [
+              "bonus_action",
+              1
+            ]
+          },
+          {
+            "profile": "set",
+            "arguments": [
+              "reaction",
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "mischievous": {
+      "hook": {
+        "profile": "damage_done"
+      },
+      "trigger": {
+        "effects": [
+          {
+            "profile": "debit",
+            "arguments": [
+              "mischief",
+              {
+                "damage_attributes": {
+                  "property": {
+                    "value": "damage"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "dodge": {
+      "hook": {
+        "profile": "roll"
+      },
+      "conditions": [
+        {
+          "greater_or_equal": {
+            "arguments": [
+              {
+                "quantity": {
+                  "value": "dodge_token"
+                }
+              },
+              1
+            ]
+          }
+        },
+        {
+          "contains": {
+            "arguments": [
+              {
+                "attack_attributes": {
+                  "property": {
+                    "value": "tags"
+                  }
+                }
+              },
+              "physical"
+            ]
+          }
+        }
+      ],
+      "trigger": {
+        "effects": [
+          {
+            "profile": "disadvantage"
+          }
+        ]
+      }
+    },
+    "dodge_discard": {
+      "hook": {
+        "profile": "start_turn"
+      },
+      "trigger": {
+        "effects": [
+          {
+            "profile": "set",
+            "arguments": [
+              "dodge_token",
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "disengage": {
+      "hook": {
+        "profile": "threatened_zone_exit",
+        "priority": -1
+      },
+      "conditions": [
+        {
+          "greater_or_equal": {
+            "arguments": [
+              {
+                "quantity": {
+                  "value": "disengage_token"
+                }
+              },
+              1
+            ]
+          }
+        }
+      ],
+      "trigger": {
+        "effects": [
+          {
+            "profile": "TODO"
+          }
+        ]
+      }
+    },
+    "mortal": {
+      "hook": {
+        "profile": "ticker"
+      },
+      "conditions": [
+        {
+          "less_or_equal": {
+            "arguments": [
+              {
+                "quantity": {
+                  "value": "hit_point"
+                }
+              },
+              0
+            ]
+          }
+        }
+      ],
+      "trigger": {
+        "effects": [
+          {
+            "profile": "set",
+            "arguments": [
+              "life",
+              0
+            ]
+          },
+          {
+            "profile": "remove_from_play"
+          }
+        ]
+      }
+    }
+  }
+}

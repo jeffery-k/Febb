@@ -1,0 +1,25 @@
+{
+  "games": {
+    "basic": {
+      "prototype": true,
+      "board_width": 100,
+      "board_height": 100
+    },
+    "1v1": {
+      "prototypes": [
+        "basic"
+      ],
+      "game_characters": [
+        "1v1"
+      ]
+    },
+    "1v2": {
+      "prototypes": [
+        "basic"
+      ],
+      "game_characters": [
+        "1v2"
+      ]
+    }
+  }
+}

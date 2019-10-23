@@ -1,0 +1,129 @@
+{
+  "characters": {
+    "Mr. Jazz": {
+      "prototype": true,
+      "name": "Mr. Jazz",
+      "class": "Bard",
+      "race": "Gnome",
+      "metrics": {
+        "level": 4,
+        "proficiency_bonus": 2,
+        "armor_class": 17,
+        "initiative_bonus": 4,
+        "spell_save": 12,
+        "spell_attack": 4,
+        "movement": 25,
+        "strength": 12,
+        "dexterity": 14,
+        "constitution": 13,
+        "intelligence": 12,
+        "wisdom": 8,
+        "charisma": 15,
+        "max_hp": 32
+      },
+      "abilities": [
+        "basic"
+      ],
+      "skills": [
+        "heavy_crossbow_attack",
+        "super_heavy_crossbow_attack",
+        "abstain"
+      ]
+    },
+    "Super Goblin": {
+      "prototype": true,
+      "name": "Super Goblin",
+      "metrics": {
+        "armor_class": 15,
+        "movement": 30,
+        "strength": 8,
+        "dexterity": 14,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 8,
+        "charisma": 8,
+        "max_hp": 25
+      },
+      "abilities": [
+        "basic",
+        "mischievous"
+      ],
+      "skills": [
+        "goblin_scimitar_action_attack",
+        "abstain"
+      ]
+    },
+    "PC1": {
+      "prototypes": [
+        "Mr. Jazz"
+      ],
+      "name": "Mr. Jazz",
+      "alignment": "pc",
+      "position": [
+        50,
+        20
+      ],
+      "initiative": {
+        "addition": {
+          "arguments": [
+            {
+              "roll": {
+                "count": 1,
+                "sides": 20
+              }
+            },
+            {
+              "property": {
+                "value": "initiative_bonus"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Monster1": {
+      "prototypes": [
+        "Super Goblin"
+      ],
+      "name": "Super Goblin",
+      "alignment": "monster",
+      "position": [
+        50,
+        50
+      ],
+      "initiative": {
+        "alignment": {
+          "property": {
+            "value": "initiative"
+          }
+        }
+      }
+    },
+    "Monster2": {
+      "prototypes": [
+        "Super Goblin"
+      ],
+      "name": "Super Goblin",
+      "alignment": "monster",
+      "position": [
+        50,
+        50
+      ],
+      "initiative": {
+        "alignment": {
+          "property": {
+            "value": "initiative"
+          }
+        }
+      }
+    },
+    "1v1": [
+      "PC1",
+      "Monster1"
+    ],
+    "1v2": [
+      "1v1",
+      "Monster2"
+    ]
+  }
+}

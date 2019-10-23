@@ -1,0 +1,475 @@
+{
+  "skills": {
+    "basic": [
+      "abstain",
+      "movement",
+      "dodge",
+      "disengage"
+    ],
+    "abstain": {
+      "profile": "abstain",
+      "targeting": {
+        "profile": "self"
+      },
+      "trigger": {
+        "effects": [
+          {
+            "profile": "end_turn"
+          }
+        ]
+      }
+    },
+    "movement": {
+      "profile": "movement",
+      "targeting": {
+        "profile": "terrain_target"
+      },
+      "conditions": [
+        {
+          "greater_or_equal": {
+            "arguments": [
+              {
+                "resources": {
+                  "movement": {
+                    "property": {
+                      "value": "quantity"
+                    }
+                  }
+                }
+              },
+              1
+            ]
+          }
+        }
+      ],
+      "trigger": {
+        "effects": [
+          {
+            "profile": "movement"
+          },
+          {
+            "profile": "debit",
+            "target": "actor",
+            "arguments": [
+              "movement",
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "dodge": {
+      "profile": "dodge",
+      "conditions": [
+        {
+          "greater_or_equal": {
+            "arguments": [
+              {
+                "quantity": {
+                  "value": "action"
+                }
+              },
+              1
+            ]
+          }
+        }
+      ],
+      "targeting": {
+        "profile": "self"
+      },
+      "trigger": {
+        "effects": [
+          {
+            "profile": "debit",
+            "arguments": [
+              "action",
+              1
+            ]
+          },
+          {
+            "profile": "credit",
+            "arguments": [
+              "dodge_token",
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "disengage": {
+      "profile": "disengage",
+      "conditions": [
+        false,
+        {
+          "greater_or_equal": {
+            "arguments": [
+              {
+                "quantity": {
+                  "value": "action"
+                }
+              },
+              1
+            ]
+          }
+        }
+      ],
+      "trigger": {
+        "effects": [
+          {
+            "profile": "credit",
+            "arguments": [
+              "disengage_token",
+              1
+            ]
+          },
+          {
+            "profile": "debit",
+            "arguments": [
+              "action",
+              1
+            ]
+          }
+        ]
+      }
+    },
+    "attack": {
+      "prototype": true,
+      "profile": "attack",
+      "conditions": [
+        {
+          "greater_or_equal": {
+            "arguments": [
+              {
+                "quantity": {
+                  "value": "$attack_resource"
+                }
+              },
+              "$attack_cost"
+            ]
+          }
+        }
+      ],
+      "trigger": {
+        "effects": [
+          {
+            "profile": "attack",
+            "type": "$damage_type",
+            "hit_metric": "$hit_metric",
+            "save_metric": "$save_metric",
+            "hit_conditions": [
+              {
+                "greater_or_equal": {
+                  "arguments": [
+                    {
+                      "attack_attributes": {
+                        "property": {
+                          "value": "hit_metric"
+                        }
+                      }
+                    },
+                    {
+                      "attack_attributes": {
+                        "property": {
+                          "value": "save_metric"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "damage": {
+              "addition": {
+                "arguments": [
+                  "$damage_base",
+                  "$damage_bonus"
+                ]
+              }
+            }
+          },
+          {
+            "profile": "debit",
+            "target": "actor",
+            "arguments": [
+              "$attack_resource",
+              1
+            ]
+          }
+        ]
+      },
+      "properties": {
+        "$save_metric": {
+          "property": {
+            "value": "armor_class"
+          }
+        },
+        "$damage_type": [
+          "physical"
+        ]
+      }
+    },
+    "action_attack": {
+      "prototype": true,
+      "profile": "action_attack",
+      "prototypes": [
+        "attack"
+      ],
+      "properties": {
+        "$attack_resource": "action"
+      }
+    },
+    "opportunity_attack": {
+      "prototype": true,
+      "profile": "opportunity_attack",
+      "conditions": [
+        false
+      ],
+      "prototypes": [
+        "attack"
+      ],
+      "properties": {
+        "$attack_resource": "reaction"
+      }
+    },
+    "melee_weapon_attack": {
+      "prototype": true,
+      "prototypes": [
+        "attack"
+      ],
+      "properties": {
+        "$attack_cost": 1,
+        "$hit_metric": {
+          "addition": {
+            "arguments": [
+              {
+                "actor": {
+                  "roll": {
+                    "count": 1,
+                    "sides": 20
+                  }
+                }
+              },
+              {
+                "actor": {
+                  "property": {
+                    "value": "strength_am"
+                  }
+                }
+              },
+              {
+                "actor": {
+                  "property": {
+                    "value": "proficiency_bonus"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "$damage_bonus": {
+          "actor": {
+            "property": {
+              "value": "strength_am"
+            }
+          }
+        }
+      },
+      "targeting": {
+        "profile": "single_target",
+        "range": 5,
+        "affinity": "hostile"
+      }
+    },
+    "ranged_weapon_attack": {
+      "prototype": true,
+      "prototypes": [
+        "attack"
+      ],
+      "properties": {
+        "$attack_cost": 1,
+        "$hit_metric": {
+          "addition": {
+            "arguments": [
+              {
+                "actor": {
+                  "roll": {
+                    "count": 1,
+                    "sides": 20
+                  }
+                }
+              },
+              {
+                "actor": {
+                  "property": {
+                    "value": "dexterity_am"
+                  }
+                }
+              },
+              {
+                "actor": {
+                  "property": {
+                    "value": "proficiency_bonus"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "$damage_bonus": {
+          "actor": {
+            "property": {
+              "value": "dexterity_am"
+            }
+          }
+        }
+      },
+      "targeting": {
+        "profile": "ranged_attack",
+        "affinity": "hostile"
+      }
+    },
+    "finesse_weapon_attack": {
+      "prototype": true,
+      "prototypes": [
+        "melee_weapon_attack"
+      ],
+      "properties": {
+        "$attack_cost": 1,
+        "$attack_bonus": {
+          "add": {
+            "arguments": [
+              {
+                "max": {
+                  "arguments": [
+                    {
+                      "actor": {
+                        "property": {
+                          "value": "strength_am"
+                        }
+                      }
+                    },
+                    {
+                      "actor": {
+                        "property": {
+                          "value": "dexterity_am"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "property": {
+                  "value": "proficiency_bonus"
+                }
+              }
+            ]
+          }
+        },
+        "$damage_bonus": {
+          "actor": {
+            "max": {
+              "arguments": [
+                {
+                  "property": {
+                    "value": "strength_am"
+                  }
+                },
+                {
+                  "property": {
+                    "value": "dexterity_am"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "rapier_attack": {
+      "prototype": true,
+      "prototypes": [
+        "finesse_weapon_attack"
+      ],
+      "properties": {
+        "$damage_base": {
+          "actor": {
+            "roll": {
+              "count": 1,
+              "sides": 8
+            }
+          }
+        }
+      }
+    },
+    "rapier_action_attack": {
+      "prototypes": [
+        "action_attack",
+        "rapier_attack"
+      ]
+    },
+    "rapier_opportunity_attack": {
+      "prototypes": [
+        "opportunity_attack",
+        "rapier_attack"
+      ]
+    },
+    "heavy_crossbow_attack": {
+      "prototypes": [
+        "action_attack",
+        "ranged_weapon_attack"
+      ],
+      "properties": {
+        "$damage_base": {
+          "actor": {
+            "roll": {
+              "count": 1,
+              "sides": 10
+            }
+          }
+        }
+      }
+    },
+    "super_heavy_crossbow_attack": {
+      "prototypes": [
+        "action_attack",
+        "ranged_weapon_attack"
+      ],
+      "properties": {
+        "$damage_base": {
+          "actor": 5
+        }
+      }
+    },
+    "goblin_scimitar_attack": {
+      "prototype": true,
+      "prototypes": [
+        "melee_weapon_attack"
+      ],
+      "properties": {
+        "$attack_bonus": 4,
+        "$damage_bonus": 2,
+        "$damage_base": {
+          "actor": {
+            "roll": {
+              "count": 1,
+              "sides": 6
+            }
+          }
+        }
+      }
+    },
+    "goblin_scimitar_action_attack": {
+      "prototypes": [
+        "goblin_scimitar_attack",
+        "action_attack"
+      ]
+    },
+    "goblin_scimitar_opportunity_attack": {
+      "prototypes": [
+        "goblin_scimitar_attack",
+        "opportunity_attack"
+      ]
+    }
+  }
+}
