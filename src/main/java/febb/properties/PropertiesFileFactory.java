@@ -7,5 +7,7 @@ public class PropertiesFileFactory {
         this.directory = directory;
     }
 
-
+    public SimulationProperties getSimulationProperties() {
+        return null;
+    }
 }

@@ -36,8 +36,22 @@ public class Display {
         frame.setVisible(true);
     }
 
-    public String input(String prompt, List<String> options) {
+    public void clearView() {
+        //TODO
+    }
+
+    public String buttonInput(String prompt, List<String> options) {
         //TODO
         return null;
+    }
+
+    public String selectionInput(String prompt, List<String> options) {
+        //TODO
+        return null;
+    }
+
+    public boolean isActive() {
+        //TODO
+        return true;
     }
 }
