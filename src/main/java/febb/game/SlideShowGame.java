@@ -14,7 +14,7 @@ public class SlideShowGame extends Game {
     public SlideShowGame(GameProperties properties, Display display) {
         super(properties);
         view = new View(MATCH_VIEW_NAME, MATCH_VIEW_PANEL_COUNT);
-        display.addView(view);
+        display.setCurrentView(view);
     }
 
     public SlideShow slideShowSimulate(StrategySet strategySet) {

@@ -13,7 +13,7 @@ public class SlideShowStrategyManager extends StrategyManager {
     public SlideShowStrategyManager (SimulationProperties properties, String gameName, Display display) {
         super(properties, gameName);
         this.view = new View(STRATEGY_VIEW_NAME, STRATEGY_VIEW_PANEL_COUNT);
-        display.addView(view);
+        display.setCurrentView(view);
     }
 
     public SlideShow slideShowOptimize(String strategyName) {

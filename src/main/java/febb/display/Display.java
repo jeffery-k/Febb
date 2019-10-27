@@ -1,35 +1,32 @@
 package febb.display;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Display {
-    private static final int PANEL_WIDTH = 300;
-    private static final int PANEL_HEIGHT = 200;
-    private static final int BUTTON_WIDTH = 60;
-    private static final int BUTTON_HEIGHT = 40;
     private static final String MAIN_VIEW_NAME = "Main";
 
     private String name;
-    private List<View> views;
+    private View defaultView;
+    private View currentView;
+    private InputPanel inputPanel;
     private JFrame frame;
     public Display(String name) {
         this.name = name;
-        this.views = new ArrayList<View>();
-        views.add(new View(MAIN_VIEW_NAME,1));
-        init();
-    }
+        this.defaultView = new View();
+        this.currentView = defaultView;
 
-    //TODO
-    private void init() {
         this.frame = new JFrame(name);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        inputPanel = new InputPanel(frame);
+        //TODO
     }
 
-    public void addView(View view) {
-        this.views.add(view);
-        //TODO
+    public void setCurrentView(View view) {
+        currentView.dump();
+        view.load();
+        view.update();
+        this.currentView = view;
     }
 
     public void activate() {
@@ -37,21 +34,28 @@ public class Display {
     }
 
     public void clearView() {
-        //TODO
+        setCurrentView(defaultView);
     }
 
     public String buttonInput(String prompt, List<String> options) {
-        //TODO
-        return null;
+        inputPanel.setPrompt(prompt);
+        inputPanel.setButtonOptions(options);
+        inputPanel.show();
+        String input = inputPanel.input();
+        inputPanel.hide();
+        return input;
     }
 
     public String selectionInput(String prompt, List<String> options) {
-        //TODO
-        return null;
+        inputPanel.setPrompt(prompt);
+        inputPanel.setSelectionOptions(options);
+        inputPanel.show();
+        String input = inputPanel.input();
+        inputPanel.hide();
+        return input;
     }
 
     public boolean isActive() {
-        //TODO
-        return true;
+        return frame.isActive();
     }
 }
