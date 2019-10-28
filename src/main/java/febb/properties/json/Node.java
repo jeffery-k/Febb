@@ -1,7 +1,10 @@
 package febb.properties.json;
 
-public class Node {
+public abstract class Node {
+    public Node() {
+        //TODO
+    }
     public Node(String string) {
-
+        //TODO
     }
 }

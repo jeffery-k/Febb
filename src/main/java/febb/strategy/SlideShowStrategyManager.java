@@ -3,14 +3,14 @@ package febb.strategy;
 import febb.display.Display;
 import febb.display.SlideShow;
 import febb.display.View;
-import febb.properties.SimulationProperties;
+import febb.properties.SimulationConfig;
 
 public class SlideShowStrategyManager extends StrategyManager {
     private final static String STRATEGY_VIEW_NAME = "Strategy View";
     private final static int STRATEGY_VIEW_PANEL_COUNT = 2;
 
     private View view;
-    public SlideShowStrategyManager (SimulationProperties properties, String gameName, Display display) {
+    public SlideShowStrategyManager (SimulationConfig properties, String gameName, Display display) {
         super(properties, gameName);
         this.view = new View(STRATEGY_VIEW_NAME, STRATEGY_VIEW_PANEL_COUNT);
         display.setCurrentView(view);

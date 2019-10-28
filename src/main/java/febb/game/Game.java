@@ -1,11 +1,11 @@
 package febb.game;
 
-import febb.properties.GameProperties;
+import febb.properties.GameConfig;
 
 public class Game {
-    private GameProperties properties;
+    private GameConfig properties;
 
-    public Game(GameProperties properties) {
+    public Game(GameConfig properties) {
         this.properties = properties;
     }
 }

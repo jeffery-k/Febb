@@ -1,5 +1,4 @@
 {
-  "game": "1v1",
   "strategy": {
     "maximum_turns": 20,
     "simulations_per_strategy": 100,
