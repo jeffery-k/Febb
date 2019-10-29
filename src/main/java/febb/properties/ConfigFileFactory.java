@@ -26,6 +26,7 @@ public class ConfigFileFactory {
 
         String string = stringBuilder.toString();
         this.simulationConfigNode = new ObjectNode(string);
+        //TODO: append resources files
     }
 
     public SimulationConfig getSimulationProperties() {

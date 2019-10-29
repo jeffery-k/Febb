@@ -14,7 +14,7 @@
     "characters.json",
     "skills.json",
     "abilities.json",
-    "resources.json",
+    "metrics.json",
     "games.json"
   ]
 }

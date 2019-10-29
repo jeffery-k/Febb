@@ -2,8 +2,8 @@ package febb.properties;
 
 import febb.properties.json.Node;
 
-public class GameConfig {
-    public GameConfig(Node config) {
+public class AbilityConfig {
+    public AbilityConfig(Node config) {
 
     }
 }
