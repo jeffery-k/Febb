@@ -7,8 +7,8 @@ import febb.properties.GameConfig;
 import febb.strategy.StrategySet;
 
 public class SlideShowGame extends Game {
-    private final static String MATCH_VIEW_NAME = "Match View";
-    private final static int MATCH_VIEW_PANEL_COUNT = 3;
+    private static final String MATCH_VIEW_NAME = "Match View";
+    private static final int MATCH_VIEW_PANEL_COUNT = 3;
 
     private View view;
     public SlideShowGame(GameConfig properties, Display display) {

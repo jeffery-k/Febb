@@ -1,7 +1,7 @@
 package febb.properties.json;
 
 public class NullNode extends Node {
-    private final static String NULL_STRING = "null";
+    private static final String NULL_STRING = "null";
 
     @Override
     public boolean isNull() {
@@ -9,7 +9,7 @@ public class NullNode extends Node {
     }
 
     @Override
-    public String getValue() {
+    public String getStringValue() {
         return NULL_STRING;
     }
 }

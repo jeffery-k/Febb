@@ -3,7 +3,13 @@ package febb.properties;
 import febb.properties.json.Node;
 
 public class StrategyConfig {
-    public StrategyConfig(Node config) {
+    public StrategyConfig() {}
 
+    public StrategyConfig(Node config) {
+        //TODO
+    }
+
+    public void merge(StrategyConfig strategyConfig) {
+        //TODO
     }
 }

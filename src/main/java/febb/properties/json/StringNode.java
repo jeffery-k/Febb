@@ -4,7 +4,7 @@ public class StringNode extends Node {
     private String string;
 
     @Override
-    public String getValue() {
+    public String getStringValue() {
         return string;
     }
 }

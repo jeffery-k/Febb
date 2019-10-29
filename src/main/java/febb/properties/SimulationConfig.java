@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public class SimulationConfig {
-    private final static String STRATEGY_KEY = "strategy";
-    private final static String GAMES_KEY = "games";
-    private final static String CHARACTERS_KEY = "characters";
-    private final static String SKILLS_KEY = "skills";
-    private final static String ABILITIES_KEY = "abilities";
-    private final static String METRICS_KEY = "metrics";
+    private static final String STRATEGY_KEY = "strategy";
+    private static final String GAMES_KEY = "games";
+    private static final String CHARACTERS_KEY = "characters";
+    private static final String SKILLS_KEY = "skills";
+    private static final String ABILITIES_KEY = "abilities";
+    private static final String METRICS_KEY = "metrics";
 
     private StrategyConfig strategyConfig;
     private Map<String, GameConfig> gameConfigMap;
@@ -21,14 +21,17 @@ public class SimulationConfig {
     private Map<String, SkillConfig> skillConfigMap;
     private Map<String, AbilityConfig> abilityConfigMap;
     private Map<String, MetricConfig> metricConfigMap;
+
+    public SimulationConfig() {
+        initMaps();
+        this.strategyConfig = new StrategyConfig();
+    }
+
     public SimulationConfig(Node config) {
+        initMaps();
+
         Node strategyNode = config.get(STRATEGY_KEY);
         this.strategyConfig = new StrategyConfig(strategyNode);
-        this.gameConfigMap = new HashMap<String, GameConfig>();
-        this.characterConfigMap = new HashMap<String, CharacterConfig>();
-        this.skillConfigMap = new HashMap<String, SkillConfig>();
-        this.abilityConfigMap = new HashMap<String, AbilityConfig>();
-        this.metricConfigMap = new HashMap<String, MetricConfig>();
 
         Node gameNodeMap = config.get(GAMES_KEY);
         for (String key : gameNodeMap.getKeys()) {
@@ -63,6 +66,39 @@ public class SimulationConfig {
             Node metricNode = metricsNodeMap.get(key);
             MetricConfig metricConfig = new MetricConfig(metricNode);
             this.metricConfigMap.put(key, metricConfig);
+        }
+    }
+
+    private void initMaps() {
+        this.gameConfigMap = new HashMap<String, GameConfig>();
+        this.characterConfigMap = new HashMap<String, CharacterConfig>();
+        this.skillConfigMap = new HashMap<String, SkillConfig>();
+        this.abilityConfigMap = new HashMap<String, AbilityConfig>();
+        this.metricConfigMap = new HashMap<String, MetricConfig>();
+    }
+
+    public void merge(SimulationConfig simulationConfig) {
+        StrategyConfig strategyConfig = simulationConfig.getStrategyConfig();
+        this.strategyConfig.merge(strategyConfig);
+        for (Map.Entry<String, GameConfig> gameEntry : simulationConfig.gameConfigMap.entrySet()) {
+            String key = gameEntry.getKey();
+            gameConfigMap.computeIfAbsent(key, k -> gameEntry.getValue());
+        }
+        for (Map.Entry<String, CharacterConfig> characterEntry : simulationConfig.characterConfigMap.entrySet()) {
+            String key = characterEntry.getKey();
+            characterConfigMap.computeIfAbsent(key, k -> characterEntry.getValue());
+        }
+        for (Map.Entry<String, SkillConfig> skillEntry : simulationConfig.skillConfigMap.entrySet()) {
+            String key = skillEntry.getKey();
+            skillConfigMap.computeIfAbsent(key, k -> skillEntry.getValue());
+        }
+        for (Map.Entry<String, AbilityConfig> abilityEntry : simulationConfig.abilityConfigMap.entrySet()) {
+            String key = abilityEntry.getKey();
+            abilityConfigMap.computeIfAbsent(key, k -> abilityEntry.getValue());
+        }
+        for (Map.Entry<String, MetricConfig> metricEntry : simulationConfig.metricConfigMap.entrySet()) {
+            String key = metricEntry.getKey();
+            metricConfigMap.computeIfAbsent(key, k -> metricEntry.getValue());
         }
     }
 

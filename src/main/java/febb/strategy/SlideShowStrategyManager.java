@@ -6,8 +6,8 @@ import febb.display.View;
 import febb.properties.SimulationConfig;
 
 public class SlideShowStrategyManager extends StrategyManager {
-    private final static String STRATEGY_VIEW_NAME = "Strategy View";
-    private final static int STRATEGY_VIEW_PANEL_COUNT = 2;
+    private static final String STRATEGY_VIEW_NAME = "Strategy View";
+    private static final int STRATEGY_VIEW_PANEL_COUNT = 2;
 
     private View view;
     public SlideShowStrategyManager (SimulationConfig properties, String gameName, Display display) {

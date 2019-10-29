@@ -12,16 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Febb {
-    private final static String CONFIG_DIRECTORY = "config/config.json";
-    private final static String DISPLAY_NAME = "Febb";
-    private final static String GAME_SELECTION_PROMPT = "Select a game";
-    private final static String ACTION_SELECTION_PROMPT = "Select an action";
-    private final static String STRATEGY_SELECTION_PROMPT = "Select a strategy";
+    private static final String CONFIG_DIRECTORY = "config/config.json";
+    private static final String DISPLAY_NAME = "Febb";
+    private static final String GAME_SELECTION_PROMPT = "Select a game";
+    private static final String ACTION_SELECTION_PROMPT = "Select an action";
+    private static final String STRATEGY_SELECTION_PROMPT = "Select a strategy";
 
-    private final static String OPTIMIZE_OPTION = "Optimize";
-    private final static String VIEW_STRATEGIES_OPTION = "View Strategies";
-    private final static String START_GAME_OPTION = "Start Game";
-    private final static String[] OPTIONS = new String[] {OPTIMIZE_OPTION, VIEW_STRATEGIES_OPTION, START_GAME_OPTION};
+    private static final String OPTIMIZE_OPTION = "Optimize";
+    private static final String VIEW_STRATEGIES_OPTION = "View Strategies";
+    private static final String START_GAME_OPTION = "Start Game";
+    private static final String[] OPTIONS = new String[] {OPTIMIZE_OPTION, VIEW_STRATEGIES_OPTION, START_GAME_OPTION};
 
     public static void main(String[] args) throws IOException {
         ConfigFileFactory propertiesFactory = new ConfigFileFactory(CONFIG_DIRECTORY);
