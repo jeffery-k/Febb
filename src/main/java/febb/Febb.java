@@ -38,14 +38,14 @@ public class Febb {
         List<String> options = Arrays.asList(OPTIONS);
         while (display.isActive()) {
             actionSelection = display.buttonInput(ACTION_SELECTION_PROMPT, options);
-            if(OPTIMIZE_OPTION.equals(actionSelection)) {
+            if (OPTIMIZE_OPTION.equals(actionSelection)) {
                 List<String> strategyNames = strategyManager.getStrategyNames();
                 actionSelection = display.selectionInput(STRATEGY_SELECTION_PROMPT, strategyNames);
                 SlideShow slideShow = strategyManager.slideShowOptimize(actionSelection);
                 slideShow.play();
-            } else if(VIEW_STRATEGIES_OPTION.equals(actionSelection)) {
+            } else if (VIEW_STRATEGIES_OPTION.equals(actionSelection)) {
                 strategyManager.displayInfo();
-            } else if(START_GAME_OPTION.equals(actionSelection)) {
+            } else if (START_GAME_OPTION.equals(actionSelection)) {
                 SlideShowGame game = new SlideShowGame(simulationProperties.getGameProperties(gameSelection), display);
                 SlideShow slideShow = game.slideShowSimulate(strategyManager.getBestStrategies());
                 slideShow.play();
