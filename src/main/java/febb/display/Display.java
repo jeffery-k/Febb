@@ -1,9 +1,10 @@
 package febb.display;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
-public class Display {
+public class Display extends JPanel {
     private static final String MAIN_VIEW_NAME = "Main";
 
     private String name;
@@ -15,11 +16,13 @@ public class Display {
         this.name = name;
         this.defaultView = new View();
         this.currentView = defaultView;
+        //TODO: fix this mess
+
+        inputPanel = new InputPanel(this);
+        this.add(inputPanel, BorderLayout.SOUTH);
 
         this.frame = new JFrame(name);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inputPanel = new InputPanel(frame);
-        //TODO
     }
 
     public void setCurrentView(View view) {
@@ -40,18 +43,18 @@ public class Display {
     public String buttonInput(String prompt, List<String> options) {
         inputPanel.setPrompt(prompt);
         inputPanel.setButtonOptions(options);
-        inputPanel.show();
+        inputPanel.setVisible(true);
         String input = inputPanel.input();
-        inputPanel.hide();
+        inputPanel.setVisible(false);
         return input;
     }
 
     public String selectionInput(String prompt, List<String> options) {
         inputPanel.setPrompt(prompt);
         inputPanel.setSelectionOptions(options);
-        inputPanel.show();
+        inputPanel.setVisible(true);
         String input = inputPanel.input();
-        inputPanel.hide();
+        inputPanel.setVisible(false);
         return input;
     }
 

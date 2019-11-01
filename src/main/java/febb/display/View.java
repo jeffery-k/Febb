@@ -1,6 +1,8 @@
 package febb.display;
 
-public class View {
+import javax.swing.*;
+
+public class View extends JPanel {
     private static final int PANEL_WIDTH = 300;
     private static final int PANEL_HEIGHT = 200;
 

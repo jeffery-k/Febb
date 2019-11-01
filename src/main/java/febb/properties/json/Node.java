@@ -12,14 +12,14 @@ public abstract class Node implements Iterable<Node>{
     private static final String STRING_VALUE_OPERATION_STRING = "STRING_VALUE OPERATION";
     private static final String NUMBER_VALUE_OPERATION_STRING = "NUMBER_VALUE OPERATION";
 
-    protected static final char START_OBJECT = '{';
-    protected static final char END_OBJECT = '}';
-    protected static final char START_ARRAY = '[';
-    protected static final char END_ARRAY = ']';
-    protected static final char START_STRING = '"';
-    protected static final char END_STRING = '"';
-    protected static final char KEY_DELIMITER = ':';
-    protected static final char VALUE_DELIMITER = ',';
+    public static final char START_OBJECT = '{';
+    public static final char END_OBJECT = '}';
+    public static final char START_ARRAY = '[';
+    public static final char END_ARRAY = ']';
+    public static final char START_STRING = '"';
+    public static final char END_STRING = '"';
+    public static final char KEY_DELIMITER = ':';
+    public static final char VALUE_DELIMITER = ',';
 
     protected int size;
     protected char[] characters;
