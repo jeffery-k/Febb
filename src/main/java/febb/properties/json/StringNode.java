@@ -1,14 +1,14 @@
 package febb.properties.json;
 
 public class StringNode extends Node {
-    private String string;
+    private String value;
 
     public StringNode(String string) {
-        this.string = string;
+        this.value = string;
     }
 
     @Override
     public String getStringValue() {
-        return string;
+        return value;
     }
 }

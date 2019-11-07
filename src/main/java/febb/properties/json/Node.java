@@ -11,6 +11,7 @@ public abstract class Node implements Iterable<Node>{
     private static final String ITERATE_OPERATION_STRING = "ITERATE OPERATION";
     private static final String STRING_VALUE_OPERATION_STRING = "STRING_VALUE OPERATION";
     private static final String NUMBER_VALUE_OPERATION_STRING = "NUMBER_VALUE OPERATION";
+    private static final String BOOLEAN_VALUE_OPERATION_STRING = "BOOLEAN_VALUE OPERATION";
 
     public static final char START_OBJECT = '{';
     public static final char END_OBJECT = '}';
@@ -31,7 +32,7 @@ public abstract class Node implements Iterable<Node>{
         throw new UnsupportedNodeOperationException(this.getClass(), GET_OPERATION_STRING);
     }
 
-    public Node get(int key) {
+    public Node get(int index) {
         throw new UnsupportedNodeOperationException(this.getClass(), GET_OPERATION_STRING);
     }
 
@@ -47,8 +48,20 @@ public abstract class Node implements Iterable<Node>{
         throw new UnsupportedNodeOperationException(this.getClass(), STRING_VALUE_OPERATION_STRING);
     }
 
-    public double getNumberValue() {
+    public double getDoubleValue() {
         throw new UnsupportedNodeOperationException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
+    }
+
+    public int getCeilIntegerValue() {
+        throw new UnsupportedNodeOperationException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
+    }
+
+    public int getFloorIntegerValue() {
+        throw new UnsupportedNodeOperationException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
+    }
+
+    public boolean getBooleanValue() {
+        throw new UnsupportedNodeOperationException(this.getClass(), BOOLEAN_VALUE_OPERATION_STRING);
     }
 
     @Override
@@ -60,7 +73,7 @@ public abstract class Node implements Iterable<Node>{
         StringWrapper wrapping = new StringWrapper(string);
         NodeType type = wrapping.getNodeType();
         String contents = wrapping.getContents();
-        return getNode(string, type);
+        return getNode(contents, type);
     }
 
     private static Node getNode(String string, NodeType type) {
@@ -73,6 +86,8 @@ public abstract class Node implements Iterable<Node>{
                 return new StringNode(string);
             case NUMBER:
                 return new NumberNode(string);
+            case BOOLEAN:
+                return new BooleanNode(string);
             default:
                 return new NullNode();
         }

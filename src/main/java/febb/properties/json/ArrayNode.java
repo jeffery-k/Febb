@@ -18,6 +18,15 @@ public class ArrayNode extends Node implements Iterable<Node> {
     }
 
     @Override
+    public Node get(int index) {
+        if (index < nodes.size()) {
+            return nodes.get(index);
+        } else {
+            return new NullNode();
+        }
+    }
+
+    @Override
     public Iterator<Node> iterator() {
         return nodes.iterator();
     }

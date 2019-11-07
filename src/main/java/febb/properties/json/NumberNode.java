@@ -1,14 +1,24 @@
 package febb.properties.json;
 
 public class NumberNode extends Node {
-    private double number;
+    private double value;
 
     public NumberNode(String string) {
-        this.number = Double.parseDouble(string);
+        this.value = Double.parseDouble(string);
     }
 
     @Override
-    public double getNumberValue() {
-        return number;
+    public double getDoubleValue() {
+        return value;
+    }
+
+    @Override
+    public int getCeilIntegerValue() {
+        return (int) Math.ceil(value);
+    }
+
+    @Override
+    public int getFloorIntegerValue() {
+        return (int) Math.floor(value);
     }
 }

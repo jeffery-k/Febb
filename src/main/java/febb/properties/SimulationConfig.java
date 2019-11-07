@@ -67,6 +67,12 @@ public class SimulationConfig {
             MetricConfig metricConfig = new MetricConfig(metricNode);
             this.metricConfigMap.put(key, metricConfig);
         }
+
+        updatePrototypes(this.gameConfigMap);
+        updatePrototypes(this.characterConfigMap);
+        updatePrototypes(this.skillConfigMap);
+        updatePrototypes(this.abilityConfigMap);
+        updatePrototypes(this.metricConfigMap);
     }
 
     private void initMaps() {
@@ -75,6 +81,17 @@ public class SimulationConfig {
         this.skillConfigMap = new HashMap<String, SkillConfig>();
         this.abilityConfigMap = new HashMap<String, AbilityConfig>();
         this.metricConfigMap = new HashMap<String, MetricConfig>();
+    }
+
+    private <T extends PrototypedConfig> void updatePrototypes(Map<String, T> configMap) {
+        for (PrototypedConfig config : configMap.values()) {
+            List<String> prototypes = config.getPrototypes();
+            for (String prototypeName : prototypes) {
+                //TODO
+            }
+        }
+
+        //TODO
     }
 
     public void merge(SimulationConfig simulationConfig) {

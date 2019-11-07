@@ -3,6 +3,8 @@ package febb.properties.json;
 import java.util.Arrays;
 
 public class StringWrapper {
+    private static final String REGEX_BOOLEAN = "(true|false)";
+
     private NodeType nodeType;
     private String contents;
     public StringWrapper(String string) {
@@ -22,6 +24,9 @@ public class StringWrapper {
             char[] charArray = Arrays.copyOfRange(characters, 1, characters.length-1);
             this.contents = new String(charArray);
             this.nodeType = NodeType.STRING;
+        } else if (new String(characters).matches(REGEX_BOOLEAN)) {
+            this.contents = new String(characters);
+            this.nodeType = NodeType.BOOLEAN;
         } else {
             this.contents = new String(characters);
             this.nodeType = NodeType.NUMBER;

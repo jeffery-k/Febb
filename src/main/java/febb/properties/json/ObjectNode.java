@@ -28,4 +28,19 @@ public class ObjectNode extends Node {
 
         return keyBuilder.toString();
     }
+
+    @Override
+    public Node get(String key) {
+        Node value =  mapNode.get(key);
+        if (value == null) {
+            return new NullNode();
+        } else {
+            return value;
+        }
+    }
+
+    @Override
+    public Iterable<String> getKeys() {
+        return mapNode.keySet();
+    }
 }

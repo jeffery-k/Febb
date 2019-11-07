@@ -1,6 +1,7 @@
 package febb.display;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class View extends JPanel {
     private static final int PANEL_WIDTH = 300;
@@ -11,6 +12,7 @@ public class View extends JPanel {
     private Display display;
 
     public View() {
+        super(new BorderLayout());
         //TODO
     }
 
@@ -24,10 +26,6 @@ public class View extends JPanel {
     }
 
     public void dump() {
-        //TODO
-    }
-
-    public void update() {
         //TODO
     }
 }
