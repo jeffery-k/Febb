@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class NullNode extends Node {
+class NullNode extends Node {
     @Override
     public Node get(String key) {
         return new NullNode();
@@ -32,6 +32,11 @@ public class NullNode extends Node {
 
     @Override
     public double getDoubleValue() {
+        return 0;
+    }
+
+    @Override
+    public int getIntegerValue() {
         return 0;
     }
 

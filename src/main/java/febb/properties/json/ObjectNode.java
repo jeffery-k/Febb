@@ -1,15 +1,17 @@
 package febb.properties.json;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class ObjectNode extends Node {
+class ObjectNode extends Node {
     private Map<String, Node> mapNode;
 
-    public ObjectNode(String string) {
+     ObjectNode(String string) {
         this.characters = string.toCharArray();
-        this.size = 0;
+        this.characterSize = 0;
+        this.mapNode = new HashMap<String, Node>();
 
-        while(size < characters.length) {
+        while(characterSize < characters.length) {
             String key = nextKey();
             String body = nextBody();
             Node node = getNode(body);
@@ -18,7 +20,7 @@ public class ObjectNode extends Node {
     }
 
     private String nextKey() {
-        char value = characters[size];
+        char value = nextChar();
         StringBuilder keyBuilder = new StringBuilder();
 
         while (value != KEY_DELIMITER) {
@@ -26,7 +28,8 @@ public class ObjectNode extends Node {
             value = nextChar();
         }
 
-        return keyBuilder.toString();
+        String charString = keyBuilder.toString();
+        return new StringWrapper(charString).getContents();
     }
 
     @Override

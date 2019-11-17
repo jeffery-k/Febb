@@ -10,14 +10,14 @@ import java.util.Map;
 public class SimulationConfig {
     private static final String STRATEGY_KEY = "strategy";
     private static final String GAMES_KEY = "games";
-    private static final String CHARACTERS_KEY = "characters";
+    private static final String AGENTS_KEY = "agents";
     private static final String SKILLS_KEY = "skills";
     private static final String ABILITIES_KEY = "abilities";
     private static final String METRICS_KEY = "metrics";
 
     private StrategyConfig strategyConfig;
     private Map<String, GameConfig> gameConfigMap;
-    private Map<String, CharacterConfig> characterConfigMap;
+    private Map<String, AgentConfig> agentConfigMap;
     private Map<String, SkillConfig> skillConfigMap;
     private Map<String, AbilityConfig> abilityConfigMap;
     private Map<String, MetricConfig> metricConfigMap;
@@ -34,76 +34,59 @@ public class SimulationConfig {
         this.strategyConfig = new StrategyConfig(strategyNode);
 
         Node gameNodeMap = config.get(GAMES_KEY);
-        for (String key : gameNodeMap.getKeys()) {
-            Node gameNode = gameNodeMap.get(key);
+        for (String gameKey : gameNodeMap.getKeys()) {
+            Node gameNode = gameNodeMap.get(gameKey);
             GameConfig gameConfig = new GameConfig(gameNode);
-            this.gameConfigMap.put(key, gameConfig);
+            this.gameConfigMap.put(gameKey, gameConfig);
         }
 
-        Node characterNodeMap = config.get(CHARACTERS_KEY);
-        for (String key : gameNodeMap.getKeys()) {
-            Node characterNode = characterNodeMap.get(key);
-            CharacterConfig characterConfig = new CharacterConfig(characterNode);
-            this.characterConfigMap.put(key, characterConfig);
+        Node agentNodeMap = config.get(AGENTS_KEY);
+        for (String agentKey : agentNodeMap.getKeys()) {
+            Node agentNode = agentNodeMap.get(agentKey);
+            AgentConfig agentConfig = new AgentConfig(agentNode);
+            this.agentConfigMap.put(agentKey, agentConfig);
         }
 
         Node skillNodeMap = config.get(SKILLS_KEY);
-        for (String key : characterNodeMap.getKeys()) {
-            Node skillNode = skillNodeMap.get(key);
+        for (String skillKey : skillNodeMap.getKeys()) {
+            Node skillNode = skillNodeMap.get(skillKey);
             SkillConfig skillConfig = new SkillConfig(skillNode);
-            this.skillConfigMap.put(key, skillConfig);
+            this.skillConfigMap.put(skillKey, skillConfig);
         }
 
         Node abilityNodeMap = config.get(ABILITIES_KEY);
-        for (String key : abilityNodeMap.getKeys()) {
-            Node abilityNode = abilityNodeMap.get(key);
+        for (String abilityKey : abilityNodeMap.getKeys()) {
+            Node abilityNode = abilityNodeMap.get(abilityKey);
             AbilityConfig abilityConfig = new AbilityConfig(abilityNode);
-            this.abilityConfigMap.put(key, abilityConfig);
+            this.abilityConfigMap.put(abilityKey, abilityConfig);
         }
 
         Node metricsNodeMap = config.get(METRICS_KEY);
-        for (String key : metricsNodeMap.getKeys()) {
-            Node metricNode = metricsNodeMap.get(key);
+        for (String metricsKey : metricsNodeMap.getKeys()) {
+            Node metricNode = metricsNodeMap.get(metricsKey);
             MetricConfig metricConfig = new MetricConfig(metricNode);
-            this.metricConfigMap.put(key, metricConfig);
+            this.metricConfigMap.put(metricsKey, metricConfig);
         }
-
-        updatePrototypes(this.gameConfigMap);
-        updatePrototypes(this.characterConfigMap);
-        updatePrototypes(this.skillConfigMap);
-        updatePrototypes(this.abilityConfigMap);
-        updatePrototypes(this.metricConfigMap);
     }
 
     private void initMaps() {
         this.gameConfigMap = new HashMap<String, GameConfig>();
-        this.characterConfigMap = new HashMap<String, CharacterConfig>();
+        this.agentConfigMap = new HashMap<String, AgentConfig>();
         this.skillConfigMap = new HashMap<String, SkillConfig>();
         this.abilityConfigMap = new HashMap<String, AbilityConfig>();
         this.metricConfigMap = new HashMap<String, MetricConfig>();
     }
 
-    private <T extends PrototypedConfig> void updatePrototypes(Map<String, T> configMap) {
-        for (PrototypedConfig config : configMap.values()) {
-            List<String> prototypes = config.getPrototypes();
-            for (String prototypeName : prototypes) {
-                //TODO
-            }
-        }
-
-        //TODO
-    }
-
     public void merge(SimulationConfig simulationConfig) {
-        StrategyConfig strategyConfig = simulationConfig.getStrategyConfig();
+        StrategyConfig strategyConfig = simulationConfig.strategyConfig;
         this.strategyConfig.merge(strategyConfig);
         for (Map.Entry<String, GameConfig> gameEntry : simulationConfig.gameConfigMap.entrySet()) {
             String key = gameEntry.getKey();
             gameConfigMap.computeIfAbsent(key, k -> gameEntry.getValue());
         }
-        for (Map.Entry<String, CharacterConfig> characterEntry : simulationConfig.characterConfigMap.entrySet()) {
-            String key = characterEntry.getKey();
-            characterConfigMap.computeIfAbsent(key, k -> characterEntry.getValue());
+        for (Map.Entry<String, AgentConfig> agentEntry : simulationConfig.agentConfigMap.entrySet()) {
+            String key = agentEntry.getKey();
+            agentConfigMap.computeIfAbsent(key, k -> agentEntry.getValue());
         }
         for (Map.Entry<String, SkillConfig> skillEntry : simulationConfig.skillConfigMap.entrySet()) {
             String key = skillEntry.getKey();
@@ -126,12 +109,13 @@ public class SimulationConfig {
     public GameConfig getGameProperties(String string) {
         return gameConfigMap.get(string);
     }
-    public List<String> getCharacterPropertyKeys() {
-        return new ArrayList<String>(characterConfigMap.keySet());
+
+    public List<String> getAgentPropertyKeys() {
+        return new ArrayList<String>(agentConfigMap.keySet());
     }
 
-    public CharacterConfig getCharacterProperties(String string) {
-        return characterConfigMap.get(string);
+    public AgentConfig getAgentProperties(String string) {
+        return agentConfigMap.get(string);
     }
 
     public List<String> getSkillPropertiesKeys() {
@@ -160,5 +144,25 @@ public class SimulationConfig {
 
     public StrategyConfig getStrategyConfig() {
         return strategyConfig;
+    }
+
+    public Map<String, GameConfig> getGameConfigMap() {
+        return gameConfigMap;
+    }
+
+    public Map<String, AgentConfig> getAgentConfigMap() {
+        return agentConfigMap;
+    }
+
+    public Map<String, SkillConfig> getSkillConfigMap() {
+        return skillConfigMap;
+    }
+
+    public Map<String, AbilityConfig> getAbilityConfigMap() {
+        return abilityConfigMap;
+    }
+
+    public Map<String, MetricConfig> getMetricConfigMap() {
+        return metricConfigMap;
     }
 }

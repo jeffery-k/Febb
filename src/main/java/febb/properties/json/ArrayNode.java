@@ -1,16 +1,18 @@
 package febb.properties.json;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ArrayNode extends Node implements Iterable<Node> {
+class ArrayNode extends Node implements Iterable<Node> {
     private List<Node> nodes;
 
-    public ArrayNode(String string) {
+    ArrayNode(String string) {
         this.characters = string.toCharArray();
-        this.size = 0;
+        this.characterSize = 0;
+        this.nodes = new ArrayList<Node>();
 
-        while(size < characters.length) {
+        while(characterSize < characters.length) {
             String body = nextBody();
             Node node = getNode(body);
             this.nodes.add(node);

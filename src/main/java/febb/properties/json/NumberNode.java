@@ -1,15 +1,20 @@
 package febb.properties.json;
 
-public class NumberNode extends Node {
+class NumberNode extends Node {
     private double value;
 
-    public NumberNode(String string) {
+    NumberNode(String string) {
         this.value = Double.parseDouble(string);
     }
 
     @Override
     public double getDoubleValue() {
         return value;
+    }
+
+    @Override
+    public int getIntegerValue() {
+        return getFloorIntegerValue();
     }
 
     @Override

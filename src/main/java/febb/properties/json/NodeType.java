@@ -1,5 +1,5 @@
 package febb.properties.json;
 
-public enum NodeType {
+enum NodeType {
     OBJECT, ARRAY, STRING, NUMBER, BOOLEAN
 }

@@ -8,7 +8,7 @@ public class ValueDungeon<T> {
         this.value = null;
     }
 
-    public T harvestValue() {
+    public synchronized T harvestValue() {
         T returnValue;
         try {
             this.wait();
@@ -20,7 +20,7 @@ public class ValueDungeon<T> {
         return returnValue;
     }
 
-    public void loadValue(T value) {
+    public synchronized void loadValue(T value) {
         this.value = value;
         this.notify();
     }

@@ -1,9 +1,9 @@
 package febb.properties.json;
 
-public class StringNode extends Node {
+class StringNode extends Node {
     private String value;
 
-    public StringNode(String string) {
+    StringNode(String string) {
         this.value = string;
     }
 

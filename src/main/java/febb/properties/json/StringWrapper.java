@@ -2,33 +2,34 @@ package febb.properties.json;
 
 import java.util.Arrays;
 
-public class StringWrapper {
+class StringWrapper {
     private static final String REGEX_BOOLEAN = "(true|false)";
 
     private NodeType nodeType;
     private String contents;
-    public StringWrapper(String string) {
-        char[] characters = string.toCharArray();
-        char startCharacter = characters[0];
-        char endCharacter = characters[characters.length-1];
+    StringWrapper(String string) {
+        char[] agents = string.toCharArray();
+        char startAgent = agents[0];
+        char endAgent = agents[agents.length-1];
 
-        if (Node.START_OBJECT == startCharacter && Node.END_OBJECT == endCharacter) {
-            char[] charArray = Arrays.copyOfRange(characters, 1, characters.length-1);
+
+        if (Node.START_OBJECT == startAgent && Node.END_OBJECT == endAgent) {
+            char[] charArray = Arrays.copyOfRange(agents, 1, agents.length-1);
             this.contents = new String(charArray);
             this.nodeType = NodeType.OBJECT;
-        } else if (Node.START_ARRAY == startCharacter && Node.END_ARRAY == endCharacter) {
-            char[] charArray = Arrays.copyOfRange(characters, 1, characters.length-1);
+        } else if (Node.START_ARRAY == startAgent && Node.END_ARRAY == endAgent) {
+            char[] charArray = Arrays.copyOfRange(agents, 1, agents.length-1);
             this.contents = new String(charArray);
             this.nodeType = NodeType.ARRAY;
-        } else if (Node.START_STRING == startCharacter && Node.END_STRING == endCharacter) {
-            char[] charArray = Arrays.copyOfRange(characters, 1, characters.length-1);
+        } else if (Node.START_STRING == startAgent && Node.END_STRING == endAgent) {
+            char[] charArray = Arrays.copyOfRange(agents, 1, agents.length-1);
             this.contents = new String(charArray);
             this.nodeType = NodeType.STRING;
-        } else if (new String(characters).matches(REGEX_BOOLEAN)) {
-            this.contents = new String(characters);
+        } else if (new String(agents).matches(REGEX_BOOLEAN)) {
+            this.contents = new String(agents);
             this.nodeType = NodeType.BOOLEAN;
         } else {
-            this.contents = new String(characters);
+            this.contents = new String(agents);
             this.nodeType = NodeType.NUMBER;
         }
     }
