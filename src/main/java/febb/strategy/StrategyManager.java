@@ -1,13 +1,13 @@
 package febb.strategy;
 
-import febb.properties.SimulationConfig;
+import febb.properties.BaseConfig;
 
 import java.util.List;
 
 public class StrategyManager {
-    private SimulationConfig properties;
+    private BaseConfig properties;
     private StrategySet bestStrategies;
-    public StrategyManager(SimulationConfig properties, String gameName) {
+    public StrategyManager(BaseConfig properties, String gameName) {
         this.properties = properties;
     }
 

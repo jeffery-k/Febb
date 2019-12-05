@@ -3,8 +3,8 @@ package febb;
 import febb.display.Display;
 import febb.display.SlideShow;
 import febb.game.SlideShowGame;
+import febb.properties.BaseConfig;
 import febb.properties.ConfigFileFactory;
-import febb.properties.SimulationConfig;
 import febb.strategy.SlideShowStrategyManager;
 
 import java.io.IOException;
@@ -25,12 +25,12 @@ public class Febb {
 
     public static void main(String[] args) throws IOException {
         ConfigFileFactory propertiesFactory = new ConfigFileFactory(CONFIG_DIRECTORY);
-        SimulationConfig simulationProperties = propertiesFactory.getSimulationProperties();
+        BaseConfig simulationProperties = propertiesFactory.getSimulationProperties();
 
         Display display = new Display(DISPLAY_NAME);
         display.activate();
 
-        List<String> gameNames = simulationProperties.getGamePropertyKeys();
+        List<String> gameNames = simulationProperties.getConcreteGamePropertyKeys();
         String gameSelection = display.selectionInput(GAME_SELECTION_PROMPT, gameNames);
         SlideShowStrategyManager strategyManager = new SlideShowStrategyManager(simulationProperties, gameSelection, display);
 

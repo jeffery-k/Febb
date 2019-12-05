@@ -1,10 +1,9 @@
 package febb.properties.json;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-class ArrayNode extends Node implements Iterable<Node> {
+class ArrayNode extends Node {
     private List<Node> nodes;
 
     ArrayNode(String string) {
@@ -29,7 +28,7 @@ class ArrayNode extends Node implements Iterable<Node> {
     }
 
     @Override
-    public Iterator<Node> iterator() {
-        return nodes.iterator();
+    public int size() {
+        return nodes.size();
     }
 }

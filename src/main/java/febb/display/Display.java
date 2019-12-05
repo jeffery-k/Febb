@@ -27,13 +27,15 @@ public class Display extends JPanel {
         this.add(selectionInputPanel, BorderLayout.SOUTH);
 
         this.frame = new JFrame(name);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.pack();
     }
 
     public void setCurrentView(View view) {
         this.currentView.dump();
         this.currentView = view;
         this.currentView.load();
+        this.frame.pack();
     }
 
     public void activate() {

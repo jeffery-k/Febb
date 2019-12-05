@@ -7,39 +7,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AgentConfig extends PrototypedConfig<AgentConfig> {
+public class AgentConfig extends PrototypedConfig {
     private static final String POSITION_KEY = "position";
-    private static final String SKILLS_KEY = "skills";
-    private static final String ABILITIES_KEY = "abilities";
-    private static final String METRICS_KEY = "metrics";
+    private static final String SKILL_NAMES_KEY = "skills";
+    private static final String ABILITY_NAMES_KEY = "abilities";
+    private static final String METRIC_QUANTITIES_KEY = "metrics";
 
     private int[] position;
-    private List<String> skills;
-    private List<String> abilities;
-    private Map<String, Integer> metrics;
+    private List<String> skillNames;
+    private List<String> abilityNames;
+    private Map<String, Integer> metricQuantities;
     public AgentConfig(Node config) {
-        super();
+        super(config);
         this.position = new int[]{
                 config.get(0).getIntegerValue(),
                 config.get(1).getIntegerValue()};
-        this.skills = new ArrayList<String>();
-        this.abilities = new ArrayList<String>();
-        this.metrics = new HashMap<String, Integer>();
+        this.skillNames = new ArrayList<String>();
+        this.abilityNames = new ArrayList<String>();
+        this.metricQuantities = new HashMap<String, Integer>();
 
-        for (Node skillNode : config.get(SKILLS_KEY)) {
-            this.skills.add(skillNode.getStringValue());
+        Node skillNamesNode = config.get(SKILL_NAMES_KEY);
+        for (int i = 0; i < skillNamesNode.size(); i++) {
+            String skillName = skillNamesNode.get(i).getStringValue();
+            this.skillNames.add(skillName);
         }
-        for (Node abilityNode : config.get(ABILITIES_KEY)) {
-            this.abilities.add(abilityNode.getStringValue());
+        Node abilityNames = config.get(ABILITY_NAMES_KEY);
+        for (int i = 0; i < abilityNames.size(); i++) {
+            Node abilityNameNode = abilityNames.get(i);
+            this.abilityNames.add(abilityNameNode.getStringValue());
         }
-        for (String metricName : config.get(METRICS_KEY).getKeys()) {
-            this.metrics.put(metricName, config.get(METRICS_KEY).get(metricName).getIntegerValue());
+        for (String metricName : config.get(METRIC_QUANTITIES_KEY).getKeys()) {
+            this.metricQuantities.put(metricName, config.get(METRIC_QUANTITIES_KEY).get(metricName).getIntegerValue());
         }
         //TODO
     }
 
-    @Override
-    public void implement(AgentConfig prototype) {
+    public void init() {
         //TODO
     }
 }

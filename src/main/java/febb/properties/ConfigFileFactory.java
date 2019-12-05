@@ -5,7 +5,6 @@ import febb.properties.json.Node;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ConfigFileFactory {
     private static final String REGEX_EMPTY = "[\t\n ]*";
@@ -21,8 +20,9 @@ public class ConfigFileFactory {
 
         String fileString = getFileContents(baseFile).replaceAll(REGEX_EMPTY, "");
         this.simulationConfigNodes.add(Node.getNode(fileString));
-        for (Node resource : simulationConfigNodes.get(0).get(RESOURCES_KEY)) {
-            String resourceName = resource.getStringValue();
+        Node resourceNames = simulationConfigNodes.get(0).get(RESOURCES_KEY);
+        for (int i = 0; i < resourceNames.size(); i++) {
+            String resourceName = resourceNames.get(i).getStringValue();
             fileString = getFileContents(RESOURCE_BASE_DIR + resourceName).replaceAll(REGEX_EMPTY, "");;
             this.simulationConfigNodes.add(Node.getNode(fileString));
         }
@@ -48,27 +48,12 @@ public class ConfigFileFactory {
         return stringBuilder.toString();
     }
 
-    public SimulationConfig getSimulationProperties() {
-        SimulationConfig simulationConfig = new SimulationConfig();
+    public BaseConfig getSimulationProperties() {
+        BaseConfig baseConfig = new BaseConfig();
         for (Node node : simulationConfigNodes) {
-            SimulationConfig config = new SimulationConfig(node);
-            simulationConfig.merge(config);
+            BaseConfig config = new BaseConfig(node);
+            baseConfig.merge(config);
         }
-        updatePrototypes(simulationConfig.getGameConfigMap());
-        updatePrototypes(simulationConfig.getAgentConfigMap());
-        updatePrototypes(simulationConfig.getSkillConfigMap());
-        updatePrototypes(simulationConfig.getAbilityConfigMap());
-        updatePrototypes(simulationConfig.getMetricConfigMap());
-        return simulationConfig;
-    }
-
-    private static <T extends PrototypedConfig> void updatePrototypes(Map<String, T> configMap) {
-        for (PrototypedConfig config : configMap.values()) {
-            List<String> prototypes = config.getPrototypes();
-            for (String prototypeName : prototypes) {
-                T prototype = configMap.get(prototypeName);
-                config.implement(prototype);
-            }
-        }
+        return baseConfig;
     }
 }

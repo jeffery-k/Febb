@@ -3,9 +3,7 @@ package febb.properties.json;
 import febb.properties.json.exception.MalformedNodeException;
 import febb.properties.json.exception.UnsupportedNodeOperationException;
 
-import java.util.Iterator;
-
-public abstract class Node implements Iterable<Node> {
+public abstract class Node {
     private static final String GET_OPERATION_STRING = "GET OPERATION";
     private static final String KEYS_OPERATION_STRING = "KEYS OPERATION";
     private static final String ITERATE_OPERATION_STRING = "ITERATE OPERATION";
@@ -62,6 +60,10 @@ public abstract class Node implements Iterable<Node> {
         throw new UnsupportedNodeOperationException(this.getClass(), GET_OPERATION_STRING);
     }
 
+    public int size() {
+        throw new UnsupportedNodeOperationException(this.getClass(), GET_OPERATION_STRING);
+    }
+
     public Iterable<String> getKeys() {
         throw new UnsupportedNodeOperationException(this.getClass(), KEYS_OPERATION_STRING);
     }
@@ -92,11 +94,6 @@ public abstract class Node implements Iterable<Node> {
 
     public boolean getBooleanValue() {
         throw new UnsupportedNodeOperationException(this.getClass(), BOOLEAN_VALUE_OPERATION_STRING);
-    }
-
-    @Override
-    public Iterator<Node> iterator() {
-        throw new UnsupportedNodeOperationException(this.getClass(), ITERATE_OPERATION_STRING);
     }
 
     protected Character nextChar() {

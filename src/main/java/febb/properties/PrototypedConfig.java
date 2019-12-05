@@ -1,25 +1,1 @@
-package febb.properties;
-
-import java.util.ArrayList;
-import java.util.List;
-
-//TODO: Initiate prototypes in implementing constructors
-//TODO: Add null-checks to all node accepting constructors
-public abstract class PrototypedConfig <T extends PrototypedConfig> {
-    protected String PROTOTYPE_KEY = "prototype";
-    protected String PROTOTYPES_KEY = "prototypes";
-
-    protected boolean prototype;
-    protected List<String> prototypes;
-
-    public PrototypedConfig() {
-        prototype = false;
-        prototypes = new ArrayList<String>();
-    }
-
-    public List<String> getPrototypes() {
-        return new ArrayList<String>(prototypes);
-    }
-
-    public abstract void implement(T prototype);
-}
+package febb.properties;import febb.properties.json.Node;import java.util.ArrayList;import java.util.HashMap;import java.util.List;import java.util.Map;//TODO: Initiate prototypes in implementing constructors//TODO: Add null-checks to all node accepting constructorspublic abstract class PrototypedConfig {    private String PROTOTYPE_KEY = "prototype";    private String PROTOTYPE_NAMES_KEY = "prototypes";    private String PROPERTIES_KEY = "properties";    private boolean prototype;    private List<String> prototypes;    private Map<String, Node> properties;    protected Node config;    public PrototypedConfig(Node config) {        this.prototype = config.get(PROTOTYPE_KEY).getBooleanValue();        this.config = config;        this.prototypes = new ArrayList<String>();        Node prototypesNode = config.get(PROTOTYPE_NAMES_KEY);        for(int i = 0; i < prototypesNode.size(); i++) {            prototypes.add(prototypesNode.get(i).getStringValue());        }        this.properties = new HashMap<String, Node>();        Node propertiesNode = config.get(PROPERTIES_KEY);        for (String propertyKey : propertiesNode.getKeys()) {            properties.put(propertyKey, propertiesNode.get(propertyKey));        }    }    public abstract void init();    protected void loadProperties() {        //TODO:... this    }    public boolean isPrototype() {        return prototype;    }    public Map<String, Node> getProperties() {        return properties;    }    public List<String> getPrototypes() {        return prototypes;    }    public void implement(PrototypedConfig prototype) {        implement(prototype.config);    }    public void implement(Node prototype) {        //TODO    }}
