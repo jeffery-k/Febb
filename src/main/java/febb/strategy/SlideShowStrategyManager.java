@@ -10,7 +10,8 @@ public class SlideShowStrategyManager extends StrategyManager {
     private static final int STRATEGY_VIEW_PANEL_COUNT = 2;
 
     private View view;
-    public SlideShowStrategyManager (BaseConfig properties, String gameName, Display display) {
+
+    public SlideShowStrategyManager(BaseConfig properties, String gameName, Display display) {
         super(properties, gameName);
         this.view = new View(STRATEGY_VIEW_NAME, STRATEGY_VIEW_PANEL_COUNT);
         display.setCurrentView(view);

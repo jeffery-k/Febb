@@ -1,4 +1,4 @@
-package febb.properties;
+package febb.properties.prototyped;
 
 import febb.properties.json.Node;
 
@@ -13,6 +13,7 @@ public class GameConfig extends PrototypedConfig {
     private int boardWidth;
     private int boardHeight;
     private List<String> gameAgentNames;
+
     public GameConfig(Node config) {
         super(config);
     }

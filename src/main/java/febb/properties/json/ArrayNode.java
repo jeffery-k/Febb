@@ -10,8 +10,9 @@ class ArrayNode extends Node {
         this.characters = string.toCharArray();
         this.characterSize = 0;
         this.nodes = new ArrayList<Node>();
+        this.nodeType = NodeType.ARRAY;
 
-        while(characterSize < characters.length) {
+        while (characterSize < characters.length) {
             String body = nextBody();
             Node node = getNode(body);
             this.nodes.add(node);

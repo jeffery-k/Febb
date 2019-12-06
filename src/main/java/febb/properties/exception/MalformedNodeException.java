@@ -1,4 +1,4 @@
-package febb.properties.json.exception;
+package febb.properties.exception;
 
 public class MalformedNodeException extends RuntimeException {
     public MalformedNodeException(Class nodeClass) {

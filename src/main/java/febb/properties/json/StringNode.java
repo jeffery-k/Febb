@@ -5,6 +5,7 @@ class StringNode extends Node {
 
     StringNode(String string) {
         this.value = string;
+        this.nodeType = NodeType.STRING;
     }
 
     @Override
