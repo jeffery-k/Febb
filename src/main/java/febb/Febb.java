@@ -21,7 +21,7 @@ public class Febb {
     private static final String OPTIMIZE_OPTION = "Optimize";
     private static final String VIEW_STRATEGIES_OPTION = "View Strategies";
     private static final String START_GAME_OPTION = "Start Game";
-    private static final String[] OPTIONS = new String[] {OPTIMIZE_OPTION, VIEW_STRATEGIES_OPTION, START_GAME_OPTION};
+    private static final String[] OPTIONS = new String[]{OPTIMIZE_OPTION, VIEW_STRATEGIES_OPTION, START_GAME_OPTION};
 
     public static void main(String[] args) throws IOException {
         ConfigFileFactory propertiesFactory = new ConfigFileFactory(CONFIG_DIRECTORY);

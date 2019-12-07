@@ -13,6 +13,7 @@ public class Display extends JPanel {
     private ButtonInputPanel buttonInputPanel;
     private SelectionInputPanel selectionInputPanel;
     private JFrame frame;
+
     public Display(String name) {
         super(new BorderLayout());
         this.name = name;

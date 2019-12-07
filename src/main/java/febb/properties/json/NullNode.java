@@ -1,10 +1,12 @@
 package febb.properties.json;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 
 class NullNode extends Node {
+    public NullNode() {
+        this.nodeType = NodeType.NULL;
+    }
+
     @Override
     public Node get(String key) {
         return new NullNode();
@@ -18,11 +20,6 @@ class NullNode extends Node {
     @Override
     public Iterable<String> getKeys() {
         return new ArrayList<String>();
-    }
-
-    @Override
-    public Iterator<Node> iterator() {
-        return Collections.emptyIterator();
     }
 
     @Override
@@ -41,12 +38,22 @@ class NullNode extends Node {
     }
 
     @Override
-    public boolean getBooleanValue() {
-        return false;
+    public int size() {
+        return 0;
     }
 
     @Override
-    public boolean isNull() {
-        return true;
+    public int getCeilIntegerValue() {
+        return 0;
+    }
+
+    @Override
+    public int getFloorIntegerValue() {
+        return 0;
+    }
+
+    @Override
+    public boolean getBooleanValue() {
+        return false;
     }
 }

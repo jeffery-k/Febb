@@ -1,4 +1,4 @@
-package febb.properties.json.exception;
+package febb.properties.exception;
 
 public class MismatchNodeWrapException extends RuntimeException {
     public MismatchNodeWrapException(String startWrap, String endWrap) {

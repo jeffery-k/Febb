@@ -5,6 +5,7 @@ class NumberNode extends Node {
 
     NumberNode(String string) {
         this.value = Double.parseDouble(string);
+        this.nodeType = NodeType.NUMBER;
     }
 
     @Override

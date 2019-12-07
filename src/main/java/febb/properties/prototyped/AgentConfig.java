@@ -1,4 +1,4 @@
-package febb.properties;
+package febb.properties.prototyped;
 
 import febb.properties.json.Node;
 
@@ -17,8 +17,12 @@ public class AgentConfig extends PrototypedConfig {
     private List<String> skillNames;
     private List<String> abilityNames;
     private Map<String, Integer> metricQuantities;
+
     public AgentConfig(Node config) {
         super(config);
+    }
+
+    public void init() {
         this.position = new int[]{
                 config.get(0).getIntegerValue(),
                 config.get(1).getIntegerValue()};
@@ -39,10 +43,5 @@ public class AgentConfig extends PrototypedConfig {
         for (String metricName : config.get(METRIC_QUANTITIES_KEY).getKeys()) {
             this.metricQuantities.put(metricName, config.get(METRIC_QUANTITIES_KEY).get(metricName).getIntegerValue());
         }
-        //TODO
-    }
-
-    public void init() {
-        //TODO
     }
 }

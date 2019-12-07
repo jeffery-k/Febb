@@ -1,6 +1,9 @@
 package febb.properties;
 
+import febb.properties.exception.MissingPrototypeException;
 import febb.properties.json.Node;
+import febb.properties.json.NodeType;
+import febb.properties.prototyped.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +17,6 @@ public class BaseConfig {
     private static final String SKILLS_KEY = "skills";
     private static final String ABILITIES_KEY = "abilities";
     private static final String METRICS_KEY = "metrics";
-    private static final String PROTOTYPES_KEY = "prototypes";
 
     private StrategyConfig strategyConfig;
     private Map<String, PrototypedConfig> gameConfigMap;
@@ -43,45 +45,67 @@ public class BaseConfig {
         this.strategyConfig = new StrategyConfig(strategyNode);
 
         Node gameNodeMap = config.get(GAMES_KEY);
-        //TODO: use initConfig method instead
         for (String gameKey : gameNodeMap.getKeys()) {
             Node gameNode = gameNodeMap.get(gameKey);
-            GameConfig gameConfig = new GameConfig(gameNode);
-
-            Node prototypeNames = gameNode.get(PROTOTYPES_KEY);
-            for (int i = 0; i < prototypeNames.size(); i++) {
-                Node prototype = gameNodeMap.get(prototypeNames.getStringValue());
-                gameConfig.implement(prototype);
+            PrototypedConfig gameConfig;
+            if (gameNode.getNodeType() == NodeType.ARRAY) {
+                gameConfig = new ConfigList(gameNode);
+            } else {
+                gameConfig = new GameConfig(gameNode);
+                initConfig(gameConfig, this.gameConfigMap);
             }
-            gameConfig.init();
             this.gameConfigMap.put(gameKey, gameConfig);
         }
 
         Node agentNodeMap = config.get(AGENTS_KEY);
         for (String agentKey : agentNodeMap.getKeys()) {
             Node agentNode = agentNodeMap.get(agentKey);
-            AgentConfig agentConfig = new AgentConfig(agentNode);
+            PrototypedConfig agentConfig;
+            if (agentNode.getNodeType() == NodeType.ARRAY) {
+                agentConfig = new ConfigList(agentNode);
+            } else {
+                agentConfig = new AgentConfig(agentNode);
+                initConfig(agentConfig, this.abilityConfigMap);
+            }
             this.agentConfigMap.put(agentKey, agentConfig);
         }
 
         Node skillNodeMap = config.get(SKILLS_KEY);
         for (String skillKey : skillNodeMap.getKeys()) {
             Node skillNode = skillNodeMap.get(skillKey);
-            SkillConfig skillConfig = new SkillConfig(skillNode);
+            PrototypedConfig skillConfig;
+            if (skillNode.getNodeType() == NodeType.ARRAY) {
+                skillConfig = new ConfigList(skillNode);
+            } else {
+                skillConfig = new SkillConfig(skillNode);
+                initConfig(skillConfig, this.skillConfigMap);
+            }
             this.skillConfigMap.put(skillKey, skillConfig);
         }
 
         Node abilityNodeMap = config.get(ABILITIES_KEY);
         for (String abilityKey : abilityNodeMap.getKeys()) {
             Node abilityNode = abilityNodeMap.get(abilityKey);
-            AbilityConfig abilityConfig = new AbilityConfig(abilityNode);
+            PrototypedConfig abilityConfig;
+            if (abilityNode.getNodeType() == NodeType.ARRAY) {
+                abilityConfig = new ConfigList(abilityNode);
+            } else {
+                abilityConfig = new AbilityConfig(abilityNode);
+                initConfig(abilityConfig, this.abilityConfigMap);
+            }
             this.abilityConfigMap.put(abilityKey, abilityConfig);
         }
 
         Node metricsNodeMap = config.get(METRICS_KEY);
         for (String metricsKey : metricsNodeMap.getKeys()) {
             Node metricNode = metricsNodeMap.get(metricsKey);
-            MetricConfig metricConfig = new MetricConfig(metricNode);
+            PrototypedConfig metricConfig;
+            if (metricNode.getNodeType() == NodeType.ARRAY) {
+                metricConfig = new ConfigList(metricNode);
+            } else {
+                metricConfig = new MetricConfig(metricNode);
+                initConfig(metricConfig, this.metricConfigMap);
+            }
             this.metricConfigMap.put(metricsKey, metricConfig);
         }
     }
@@ -90,6 +114,9 @@ public class BaseConfig {
         List<String> prototypeNames = config.getPrototypes();
         for (String prototypeName : prototypeNames) {
             PrototypedConfig prototype = prototypes.get(prototypeName);
+            if (prototype == null) {
+                throw new MissingPrototypeException(prototypeName);
+            }
             config.implement(prototype);
         }
         config.init();
@@ -134,6 +161,7 @@ public class BaseConfig {
         return getConcreteKeys(agentConfigMap);
     }
 
+    //TODO return list
     public AgentConfig getAgentProperties(String string) {
         return (AgentConfig) agentConfigMap.get(string);
     }
@@ -142,6 +170,7 @@ public class BaseConfig {
         return getConcreteKeys(skillConfigMap);
     }
 
+    //TODO return list
     public SkillConfig getSkillProperties(String string) {
         return (SkillConfig) skillConfigMap.get(string);
     }
@@ -150,6 +179,7 @@ public class BaseConfig {
         return getConcreteKeys(abilityConfigMap);
     }
 
+    //TODO return list
     public AbilityConfig getAbilityProperties(String string) {
         return (AbilityConfig) abilityConfigMap.get(string);
     }
@@ -158,6 +188,7 @@ public class BaseConfig {
         return getConcreteKeys(metricConfigMap);
     }
 
+    //TODO return list
     public MetricConfig getMetricProperties(String string) {
         return (MetricConfig) metricConfigMap.get(string);
     }

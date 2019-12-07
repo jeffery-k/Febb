@@ -1,7 +1,7 @@
 package febb.properties.json;
 
-import febb.properties.json.exception.MalformedNodeException;
-import febb.properties.json.exception.UnsupportedNodeOperationException;
+import febb.properties.exception.MalformedNodeException;
+import febb.properties.exception.UnsupportedMethodException;
 
 public abstract class Node {
     private static final String GET_OPERATION_STRING = "GET OPERATION";
@@ -27,6 +27,7 @@ public abstract class Node {
 
     protected String key = null;
     protected Node parent = null;
+    protected NodeType nodeType;
 
     public static Node getNode(String string) {
         StringWrapper wrapping = new StringWrapper(string);
@@ -53,47 +54,47 @@ public abstract class Node {
     }
 
     public Node get(String key) {
-        throw new UnsupportedNodeOperationException(this.getClass(), GET_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), GET_OPERATION_STRING);
     }
 
     public Node get(int index) {
-        throw new UnsupportedNodeOperationException(this.getClass(), GET_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), GET_OPERATION_STRING);
     }
 
     public int size() {
-        throw new UnsupportedNodeOperationException(this.getClass(), GET_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), GET_OPERATION_STRING);
     }
 
     public Iterable<String> getKeys() {
-        throw new UnsupportedNodeOperationException(this.getClass(), KEYS_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), KEYS_OPERATION_STRING);
     }
 
-    public boolean isNull() {
-        return false;
+    public NodeType getNodeType() {
+        return this.nodeType;
     }
 
     public String getStringValue() {
-        throw new UnsupportedNodeOperationException(this.getClass(), STRING_VALUE_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), STRING_VALUE_OPERATION_STRING);
     }
 
     public double getDoubleValue() {
-        throw new UnsupportedNodeOperationException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
     }
 
     public int getIntegerValue() {
-        throw new UnsupportedNodeOperationException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
     }
 
     public int getCeilIntegerValue() {
-        throw new UnsupportedNodeOperationException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
     }
 
     public int getFloorIntegerValue() {
-        throw new UnsupportedNodeOperationException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), NUMBER_VALUE_OPERATION_STRING);
     }
 
     public boolean getBooleanValue() {
-        throw new UnsupportedNodeOperationException(this.getClass(), BOOLEAN_VALUE_OPERATION_STRING);
+        throw new UnsupportedMethodException(this.getClass(), BOOLEAN_VALUE_OPERATION_STRING);
     }
 
     protected Character nextChar() {
@@ -120,7 +121,7 @@ public abstract class Node {
                 currentChar = nextChar();
                 if (currentChar == null) {
                     throw new MalformedNodeException(ObjectNode.class);
-                }else if (currentChar.equals(START_OBJECT)) {
+                } else if (currentChar.equals(START_OBJECT)) {
                     openObjects++;
                 } else if (currentChar.equals(END_OBJECT)) {
                     openObjects--;
@@ -137,7 +138,7 @@ public abstract class Node {
                 currentChar = nextChar();
                 if (currentChar == null) {
                     throw new MalformedNodeException(ArrayNode.class);
-                }else if (currentChar.equals(START_ARRAY)) {
+                } else if (currentChar.equals(START_ARRAY)) {
                     openArrays++;
                 } else if (currentChar.equals(END_ARRAY)) {
                     openArrays--;
@@ -154,7 +155,7 @@ public abstract class Node {
                 currentChar = nextChar();
                 if (currentChar == null) {
                     throw new MalformedNodeException(StringNode.class);
-                }else if (currentChar.equals(END_STRING)) {
+                } else if (currentChar.equals(END_STRING)) {
                     openString = false;
                 }
                 bodyBuilder.append(currentChar);

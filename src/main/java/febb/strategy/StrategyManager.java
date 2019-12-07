@@ -7,6 +7,7 @@ import java.util.List;
 public class StrategyManager {
     private BaseConfig properties;
     private StrategySet bestStrategies;
+
     public StrategyManager(BaseConfig properties, String gameName) {
         this.properties = properties;
     }

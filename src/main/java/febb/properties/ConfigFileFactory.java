@@ -23,7 +23,8 @@ public class ConfigFileFactory {
         Node resourceNames = simulationConfigNodes.get(0).get(RESOURCES_KEY);
         for (int i = 0; i < resourceNames.size(); i++) {
             String resourceName = resourceNames.get(i).getStringValue();
-            fileString = getFileContents(RESOURCE_BASE_DIR + resourceName).replaceAll(REGEX_EMPTY, "");;
+            fileString = getFileContents(RESOURCE_BASE_DIR + resourceName).replaceAll(REGEX_EMPTY, "");
+            ;
             this.simulationConfigNodes.add(Node.getNode(fileString));
         }
         this.baseFile = baseFile;
@@ -40,7 +41,7 @@ public class ConfigFileFactory {
         BufferedReader reader = new BufferedReader(input);
         String line = reader.readLine();
         StringBuilder stringBuilder = new StringBuilder();
-        while(line != null) {
+        while (line != null) {
             stringBuilder.append(line).append("\n");
             line = reader.readLine();
         }
