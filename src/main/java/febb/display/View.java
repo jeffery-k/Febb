@@ -9,7 +9,6 @@ public class View extends JPanel {
 
     private String name;
     private int panelCount;
-    private Display display;
 
     public View() {
         super(new BorderLayout());
@@ -17,15 +16,8 @@ public class View extends JPanel {
     }
 
     public View(String name, int panelCount) {
+        super(new BorderLayout());
         this.name = name;
         this.panelCount = panelCount;
-    }
-
-    public void load() {
-        //TODO
-    }
-
-    public void dump() {
-        //TODO
     }
 }

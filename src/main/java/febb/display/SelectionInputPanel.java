@@ -27,7 +27,7 @@ public class SelectionInputPanel extends InputPanel implements ActionListener {
 
 
         this.optionListArea = new JPanel();
-        this.add(optionListArea, BorderLayout.SOUTH);
+        this.add(optionListArea, BorderLayout.CENTER);
     }
 
     public void setOptions(List<String> options) {
@@ -43,7 +43,6 @@ public class SelectionInputPanel extends InputPanel implements ActionListener {
         this.optionsList.setSelectedIndex(0);
         JScrollPane optionsScrollPane = new JScrollPane(optionsList);
         this.optionListArea.add(optionsScrollPane);
-
     }
 
     @Override

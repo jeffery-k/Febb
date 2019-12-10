@@ -5,6 +5,8 @@ import java.awt.*;
 import java.util.List;
 
 public abstract class InputPanel extends JPanel {
+    private static final int DEFAULT_HEIGHT = 100;
+    private static final int DEFAULT_WIDTH = 100;
     private ValueDungeon<String> value;
     private JTextArea prompt;
     private Display display;
