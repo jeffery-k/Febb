@@ -142,7 +142,7 @@ public class BaseConfig {
     private List<String> getConcreteKeys(Map<String, PrototypedConfig> map) {
         List<String> concreteKeys = new ArrayList<String>();
         for (Map.Entry<String, PrototypedConfig> entry : map.entrySet()) {
-            if (entry.getValue().isPrototype()) {
+            if (!entry.getValue().isPrototype()) {
                 concreteKeys.add(entry.getKey());
             }
         }
