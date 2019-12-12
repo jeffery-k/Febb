@@ -79,4 +79,12 @@ public class Display extends JPanel {
     public boolean isActive() {
         return frame.isActive();
     }
+
+    public void play(SlideShow slideShow) {
+        //TODO
+    }
+
+    public void display(String string) {
+        //TODO
+    }
 }

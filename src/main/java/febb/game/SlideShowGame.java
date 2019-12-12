@@ -1,6 +1,5 @@
 package febb.game;
 
-import febb.display.Display;
 import febb.display.SlideShow;
 import febb.display.View;
 import febb.properties.prototyped.GameConfig;
@@ -12,10 +11,9 @@ public class SlideShowGame extends Game {
 
     private View view;
 
-    public SlideShowGame(GameConfig properties, Display display) {
+    public SlideShowGame(GameConfig properties) {
         super(properties);
         view = new View(MATCH_VIEW_NAME, MATCH_VIEW_PANEL_COUNT);
-        display.setCurrentView(view);
     }
 
     public SlideShow slideShowSimulate(StrategySet strategySet) {

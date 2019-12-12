@@ -32,7 +32,7 @@ public class Febb {
 
         List<String> gameNames = simulationProperties.getConcreteGamePropertyKeys();
         String gameSelection = display.selectionInput(GAME_SELECTION_PROMPT, gameNames);
-        SlideShowStrategyManager strategyManager = new SlideShowStrategyManager(simulationProperties, gameSelection, display);
+        SlideShowStrategyManager strategyManager = new SlideShowStrategyManager(simulationProperties, gameSelection);
 
         String actionSelection;
         List<String> options = Arrays.asList(OPTIONS);
@@ -42,13 +42,14 @@ public class Febb {
                 List<String> strategyNames = strategyManager.getStrategyNames();
                 actionSelection = display.selectionInput(STRATEGY_SELECTION_PROMPT, strategyNames);
                 SlideShow slideShow = strategyManager.slideShowOptimize(actionSelection);
-                slideShow.play();
+                display.play(slideShow);
             } else if (VIEW_STRATEGIES_OPTION.equals(actionSelection)) {
-                strategyManager.displayInfo();
+                String displayInfo = strategyManager.getDisplayInfo();
+                display.display(displayInfo);
             } else if (START_GAME_OPTION.equals(actionSelection)) {
-                SlideShowGame game = new SlideShowGame(simulationProperties.getGameProperties(gameSelection), display);
+                SlideShowGame game = new SlideShowGame(simulationProperties.getGameProperties(gameSelection));
                 SlideShow slideShow = game.slideShowSimulate(strategyManager.getBestStrategies());
-                slideShow.play();
+                display.play(slideShow);
             }
         }
     }
