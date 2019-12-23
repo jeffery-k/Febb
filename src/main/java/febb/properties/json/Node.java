@@ -57,7 +57,15 @@ public abstract class Node {
         throw new UnsupportedMethodException(this.getClass(), GET_OPERATION_STRING);
     }
 
+    public Node get(String key, boolean nullable) {
+        throw new UnsupportedMethodException(this.getClass(), GET_OPERATION_STRING);
+    }
+
     public Node get(int index) {
+        throw new UnsupportedMethodException(this.getClass(), GET_OPERATION_STRING);
+    }
+
+    public Node get(int index, boolean nullable) {
         throw new UnsupportedMethodException(this.getClass(), GET_OPERATION_STRING);
     }
 

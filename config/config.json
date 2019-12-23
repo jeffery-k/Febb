@@ -11,7 +11,7 @@
     "fitness_improvement_threshold": 1.05
   },
   "resources": [
-    "characters.json",
+    "agents.json",
     "skills.json",
     "abilities.json",
     "metrics.json",

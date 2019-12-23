@@ -10,11 +10,11 @@ public class StrategyManager {
 
     public StrategyManager(BaseConfig properties, String gameName) {
         this.properties = properties;
+        //TODO
     }
 
     public List<String> getStrategyNames() {
-        //TODO
-        return null;
+        return bestStrategies.getStrategyKeys();
     }
 
     public StrategySet getBestStrategies() {

@@ -23,7 +23,7 @@ public class GameConfig extends PrototypedConfig {
         super.loadProperties();
         this.boardHeight = config.get(BOARD_HEIGHT_KEY).getIntegerValue();
         this.boardWidth = config.get(BOARD_WIDTH_KEY).getIntegerValue();
-        this.gameAgentNames = new ArrayList<String>();
+        this.gameAgentNames = new ArrayList<>();
         Node gameAgentNamesNode = config.get(GAME_AGENTS_KEY);
         for (int i = 0; i < gameAgentNamesNode.size(); i++) {
             String gameAgentName = gameAgentNamesNode.get(i).getStringValue();

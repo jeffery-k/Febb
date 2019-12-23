@@ -16,18 +16,9 @@ public class SlideShowStrategyManager extends StrategyManager {
     }
 
     public SlideShow slideShowOptimize(String strategyName) {
-        highlightStrategy(strategyName);
+
         //TODO
-        unhighlightStrategy(strategyName);
         return null;
-    }
-
-    private void highlightStrategy(String strategyName) {
-        //TODO
-    }
-
-    private void unhighlightStrategy(String strategyName) {
-        //TODO
     }
 
     public String getDisplayInfo() {

@@ -2,10 +2,13 @@ package febb.display;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Display extends JPanel {
     private static final String MAIN_VIEW_NAME = "Main";
+    private static final String CONTINUE_BUTTON_STRING = "Continue";
+    private static final String CANCEL_BUTTON_STRING = "Cancel";
 
     private String name;
     private View defaultView;
@@ -81,6 +84,11 @@ public class Display extends JPanel {
     }
 
     public void play(SlideShow slideShow) {
+        setCurrentView(slideShow.getView());
+        List<String> buttons = new ArrayList<>();
+        buttons.add(CONTINUE_BUTTON_STRING);
+        buttons.add(CANCEL_BUTTON_STRING);
+        String input = buttonInput("", buttons);
         //TODO
     }
 

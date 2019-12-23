@@ -13,7 +13,7 @@ public abstract class InputPanel extends JPanel {
 
     public InputPanel(Display display) {
         super(new BorderLayout());
-        this.value = new ValueDungeon<String>();
+        this.value = new ValueDungeon<>();
         this.prompt = new JTextArea();
         this.prompt.setEditable(false);
         this.add(prompt, BorderLayout.NORTH);

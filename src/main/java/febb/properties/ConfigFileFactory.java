@@ -16,7 +16,7 @@ public class ConfigFileFactory {
 
     public ConfigFileFactory(String baseFile) throws IOException {
         this.baseFile = baseFile;
-        this.simulationConfigNodes = new ArrayList<Node>();
+        this.simulationConfigNodes = new ArrayList<>();
 
         String fileString = getFileContents(baseFile).replaceAll(REGEX_EMPTY, "");
         this.simulationConfigNodes.add(Node.getNode(fileString));

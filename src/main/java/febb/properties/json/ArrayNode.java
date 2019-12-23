@@ -1,5 +1,7 @@
 package febb.properties.json;
 
+import febb.properties.exception.UnsupportedMethodException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ class ArrayNode extends Node {
     ArrayNode(String string) {
         this.characters = string.toCharArray();
         this.characterSize = 0;
-        this.nodes = new ArrayList<Node>();
+        this.nodes = new ArrayList<>();
         this.nodeType = NodeType.ARRAY;
 
         while (characterSize < characters.length) {
@@ -21,8 +23,15 @@ class ArrayNode extends Node {
 
     @Override
     public Node get(int index) {
+        return get(index, true);
+    }
+
+    @Override
+    public Node get(int index, boolean nullable) {
         if (index < nodes.size()) {
             return nodes.get(index);
+        } else if (nullable){
+            throw new UnsupportedMethodException(this.getClass());
         } else {
             return new NullNode();
         }

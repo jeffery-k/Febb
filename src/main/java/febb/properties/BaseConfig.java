@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BaseConfig {
     private static final String STRATEGY_KEY = "strategy";
@@ -26,20 +27,20 @@ public class BaseConfig {
     private Map<String, PrototypedConfig> metricConfigMap;
 
     public BaseConfig() {
-        this.gameConfigMap = new HashMap<String, PrototypedConfig>();
-        this.agentConfigMap = new HashMap<String, PrototypedConfig>();
-        this.skillConfigMap = new HashMap<String, PrototypedConfig>();
-        this.abilityConfigMap = new HashMap<String, PrototypedConfig>();
-        this.metricConfigMap = new HashMap<String, PrototypedConfig>();
+        this.gameConfigMap = new HashMap<>();
+        this.agentConfigMap = new HashMap<>();
+        this.skillConfigMap = new HashMap<>();
+        this.abilityConfigMap = new HashMap<>();
+        this.metricConfigMap = new HashMap<>();
         this.strategyConfig = new StrategyConfig();
     }
 
     public BaseConfig(Node config) {
-        this.gameConfigMap = new HashMap<String, PrototypedConfig>();
-        this.agentConfigMap = new HashMap<String, PrototypedConfig>();
-        this.skillConfigMap = new HashMap<String, PrototypedConfig>();
-        this.abilityConfigMap = new HashMap<String, PrototypedConfig>();
-        this.metricConfigMap = new HashMap<String, PrototypedConfig>();
+        this.gameConfigMap = new HashMap<>();
+        this.agentConfigMap = new HashMap<>();
+        this.skillConfigMap = new HashMap<>();
+        this.abilityConfigMap = new HashMap<>();
+        this.metricConfigMap = new HashMap<>();
 
         Node strategyNode = config.get(STRATEGY_KEY);
         this.strategyConfig = new StrategyConfig(strategyNode);
@@ -140,7 +141,7 @@ public class BaseConfig {
     }
 
     private List<String> getConcreteKeys(Map<String, PrototypedConfig> map) {
-        List<String> concreteKeys = new ArrayList<String>();
+        List<String> concreteKeys = new ArrayList<>();
         for (Map.Entry<String, PrototypedConfig> entry : map.entrySet()) {
             if (!entry.getValue().isPrototype()) {
                 concreteKeys.add(entry.getKey());
@@ -161,35 +162,49 @@ public class BaseConfig {
         return getConcreteKeys(agentConfigMap);
     }
 
-    //TODO return list
-    public AgentConfig getAgentProperties(String string) {
-        return (AgentConfig) agentConfigMap.get(string);
+    public List<AgentConfig> getAgentProperties(String string) {
+        List<PrototypedConfig> configs = collapseConfig(string, agentConfigMap);
+        return configs.stream().map(config -> (AgentConfig) config).collect(Collectors.toList());
     }
 
     public List<String> getConcreteSkillPropertiesKeys() {
         return getConcreteKeys(skillConfigMap);
     }
 
-    //TODO return list
-    public SkillConfig getSkillProperties(String string) {
-        return (SkillConfig) skillConfigMap.get(string);
+    public List<SkillConfig> getSkillProperties(String string) {
+        List<PrototypedConfig> configs = collapseConfig(string, skillConfigMap);
+        return configs.stream().map(config -> (SkillConfig) config).collect(Collectors.toList());
     }
 
     public List<String> getConcreteAbilityPropertiesKeys() {
         return getConcreteKeys(abilityConfigMap);
     }
 
-    //TODO return list
-    public AbilityConfig getAbilityProperties(String string) {
-        return (AbilityConfig) abilityConfigMap.get(string);
+    public List<AbilityConfig> getAbilityProperties(String string) {
+        List<PrototypedConfig> configs = collapseConfig(string, abilityConfigMap);
+        return configs.stream().map(config -> (AbilityConfig) config).collect(Collectors.toList());
     }
 
     public List<String> getConcreteMetricPropertiesKeys() {
         return getConcreteKeys(metricConfigMap);
     }
 
-    //TODO return list
-    public MetricConfig getMetricProperties(String string) {
-        return (MetricConfig) metricConfigMap.get(string);
+    public List<MetricConfig> getMetricProperties(String string) {
+        List<PrototypedConfig> configs = collapseConfig(string, metricConfigMap);
+        return configs.stream().map(config -> (MetricConfig) config).collect(Collectors.toList());
+    }
+
+    private <T extends PrototypedConfig> List<T> collapseConfig(String key, Map<String, T> configMap) {
+        List<T> configs = new ArrayList<>();
+        T config = configMap.get(key);
+        if (config.isList()) {
+            List<String> keys = config.getList();
+            for (String subKey : keys) {
+                configs.addAll(collapseConfig(subKey, configMap));
+            }
+        } else {
+            configs.add(config);
+        }
+        return configs;
     }
 }

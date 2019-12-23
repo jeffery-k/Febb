@@ -33,11 +33,11 @@ public class SelectionInputPanel extends InputPanel implements ActionListener {
     public void setOptions(List<String> options) {
         this.optionListArea.removeAll();
 
-        this.optionsListModel = new DefaultListModel<String>();
+        this.optionsListModel = new DefaultListModel<>();
         for (String option : options) {
             this.optionsListModel.addElement(option);
         }
-        this.optionsList = new JList<String>(optionsListModel);
+        this.optionsList = new JList<>(optionsListModel);
         this.optionsList.setVisibleRowCount(VISIBLE_SELECTIONS_COUNT);
         this.optionsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.optionsList.setSelectedIndex(0);

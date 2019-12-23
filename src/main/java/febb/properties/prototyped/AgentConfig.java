@@ -14,6 +14,7 @@ public class AgentConfig extends PrototypedConfig {
     private static final String METRIC_QUANTITIES_KEY = "metrics";
 
     private int[] position;
+    private String alignment;
     private List<String> skillNames;
     private List<String> abilityNames;
     private Map<String, Integer> metricQuantities;
@@ -26,9 +27,9 @@ public class AgentConfig extends PrototypedConfig {
         this.position = new int[]{
                 config.get(0).getIntegerValue(),
                 config.get(1).getIntegerValue()};
-        this.skillNames = new ArrayList<String>();
-        this.abilityNames = new ArrayList<String>();
-        this.metricQuantities = new HashMap<String, Integer>();
+        this.skillNames = new ArrayList<>();
+        this.abilityNames = new ArrayList<>();
+        this.metricQuantities = new HashMap<>();
 
         Node skillNamesNode = config.get(SKILL_NAMES_KEY);
         for (int i = 0; i < skillNamesNode.size(); i++) {

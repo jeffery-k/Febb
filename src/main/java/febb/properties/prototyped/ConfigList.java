@@ -3,12 +3,18 @@ package febb.properties.prototyped;
 import febb.properties.exception.UnsupportedMethodException;
 import febb.properties.json.Node;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ConfigList extends PrototypedConfig {
+    List<String> configNames;
     public ConfigList(Node config) {
         super();
+        this.configNames = new ArrayList<>();
+        for (int i = 0; i < config.size(); i++) {
+            this.configNames.add(config.get(i).getStringValue());
+        }
     }
 
     @Override
@@ -44,5 +50,15 @@ public class ConfigList extends PrototypedConfig {
     @Override
     public void implement(Node prototype) {
         throw new UnsupportedMethodException(this.getClass());
+    }
+
+    @Override
+    public boolean isList() {
+        return true;
+    }
+
+    @Override
+    public List<String> getList() {
+        return new ArrayList<>(configNames);
     }
 }
